@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret_Note</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Secret Note</div>
+        <div class="navbar-about">
+            <a href="#">About</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>One-Time Note Sharing</h1>
+        <form action="{{ url_for('create_note') }}" method="POST">
+            <label for="note_text">Enter your note:</label>
+            <textarea id="note_text" name="note_text" rows="4" required></textarea>
+            <div class="btn">
+                <button type="submit" class="button">Create Note</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

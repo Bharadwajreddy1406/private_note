@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Note</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Secret Note</div>
+        <div class="navbar-about">
+            <a href="#">About</a>
+        </div>
+    </nav>
+    <div class="container">
+        {% if status %}
+        <div class="info">
+            <h1> NOTE ALREADY OPENED</h1>
+        </div>
+        {% else %}
+        <h1>Show Note</h1>
+        <p>Decrypted Code: {{ decrypted_code }}</p>
+
+        {% if success == 'already_seen' %}
+        <div class="info">
+            <p>This note has already been opened.</p>
+        </div>
+        {% elif success %}
+            <p>Note opened successfully!</p>
+            <div class="note-info">
+                <p class="data">{{ note.text }}</p>
+            </div>
+        {% else %}
+            {% if success is not none %}
+                <p>Incorrect code. Please try again.</p>
+            {% endif %}
+        <form action="{{ url_for('show_note', code=note.code) }}" method="POST">
+                    <label for="entered_code">Enter the code:</label>
+                    <input type="text" id="entered_code" name="entered_code" required>
+                    <button type="submit" class="button">Open Note</button>
+        </form>
+        {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

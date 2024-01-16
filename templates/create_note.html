@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Created</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Secret Note</div>
+        <div class="navbar-about">
+            <a href="#">About</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Note Created Successfully!</h1>
+        <p>Click the following link to view your note:</p>
+        <a href="{{ note_url }}" target="_blank">{{ note_url }}</a>
+    </div>
+</body>
+</html>
