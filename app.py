@@ -51,7 +51,7 @@ def index():
 
 @app.route('/create_note', methods=['POST'])
 def create_note():
-    session["note_text"] = request.form.get('note_text')
+    note_text = request.form.get('note_text')
     if Note.query.count() > 100:
         with app.app_context():
             db.session.query(Note).delete()
@@ -62,7 +62,7 @@ def create_note():
         access_code = generate_access_code()
 
     with app.app_context():
-        new_note = Note(text=session["note_text"], code=access_code, opened=False)
+        new_note = Note(text=note_text, code=access_code, opened=False)
         db.session.add(new_note)
         db.session.commit()
     access_code = encrypt(access_code)
@@ -83,6 +83,7 @@ def show_note(code):
         entered_code = int(request.form.get('entered_code'))
         if entered_code == int(decrypted_code) and not is_note_opened(note.id):
             mark_note_as_opened(note.id)
+            # print("entered here")
             return render_template('show_note.html', decrypted_code=decrypted_code, note=note, success=True)
         else:
             return render_template('show_note.html', decrypted_code=decrypted_code, note=note, success=False, status=True)
@@ -94,4 +95,4 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
 
-    app.run(debug=True, host='0.0.0.0')
+    app.run()
